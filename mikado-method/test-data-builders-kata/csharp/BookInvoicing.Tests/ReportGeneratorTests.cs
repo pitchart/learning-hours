@@ -5,6 +5,8 @@ using BookInvoicing.Purchase;
 using BookInvoicing.Report;
 using BookInvoicing.Tests.Storage;
 using Xunit;
+using static BookInvoicing.Tests.CountryBuilder;
+using static BookInvoicing.Tests.EducationalBookBuilder;
 
 namespace BookInvoicing.Tests
 {
@@ -15,20 +17,16 @@ namespace BookInvoicing.Tests
         {
             // Arrange
             var inMemoryRepository = OverrideRepositoryForTests();
-            ReportGenerator generator = new ReportGenerator();
+            var generator = new ReportGenerator();
 
-            var book = new EducationalBook(
-                "Clean Code", 25, new Author(
-                    "Uncle Bob", new Country(
-                        "USA", Currency.UsDollar, Language.English
-                        )
-                    ),
-                Language.English, Category.Computer
-            );
+            var usa = Usa().Build();
+            var book = AnEducationalBook()
+                .Costing(25)
+                .Build();
 
             var purchasedBook = new PurchasedBook(book, 2);
 
-            Invoice invoice = new Invoice("John Doe", new Country("USA", Currency.UsDollar, Language.English));
+             var invoice = new Invoice("John Doe", usa);
             invoice.AddPurchasedBooks(new List<PurchasedBook> { purchasedBook });
 
             // Act
