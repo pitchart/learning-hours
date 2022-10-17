@@ -18,7 +18,7 @@ namespace BookInvoicing.Tests
             return ACountry()
                 .Named("USA")
                 .WhoPaysIn(Currency.UsDollar)
-                .Speaking(Language.French);
+                .Speaking(Language.English);
         }
         
         public CountryBuilder Named(string name)

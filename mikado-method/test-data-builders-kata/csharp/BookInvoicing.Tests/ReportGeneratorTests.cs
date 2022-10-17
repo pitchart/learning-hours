@@ -6,6 +6,7 @@ using BookInvoicing.Report;
 using BookInvoicing.Tests.Storage;
 using Xunit;
 using static BookInvoicing.Tests.CountryBuilder;
+using static BookInvoicing.Tests.AuthorBuilder;
 using static BookInvoicing.Tests.EducationalBookBuilder;
 
 namespace BookInvoicing.Tests
@@ -54,6 +55,23 @@ namespace BookInvoicing.Tests
                     ),
                 Language.English, new List<Genre> {Genre.Mystery, Genre.AdventureFiction }
             );
+
+
+
+            var country = ACountry()
+                .Named("France")
+                .WhoPaysIn(Currency.Euro)
+                .Speaking(Language.French);
+
+            var author = AnAuthor().Named("Some Guy").BornIn(country).Build();
+
+            var novel = NovelBuilder.ANovel()
+                .Named("A mysterious adventure fiction")
+                .Costing(35.5)
+                .WrittenBy(author)
+                .WrittenIn(Language.English)
+                .WithGenre(Genre.Mystery, Genre.AdventureFiction)
+                .Build();
 
             var purchasedBook = new PurchasedBook(book, 3);
 

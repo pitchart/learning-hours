@@ -1,5 +1,6 @@
 using BookInvoicing.Domain.Book;
 using BookInvoicing.Domain.Country;
+using System;
 
 namespace BookInvoicing.Tests
 {
@@ -7,6 +8,7 @@ namespace BookInvoicing.Tests
     {
         private string _name = "Bob";
         private Country _country = CountryBuilder.Usa().Build();
+        private CountryBuilder _countryBuilder;
 
         public static AuthorBuilder AnAuthor()
         {
@@ -27,7 +29,13 @@ namespace BookInvoicing.Tests
 
         public Author Build()
         {
-            return new Author(_name, _country);
+            return new Author(_name, _countryBuilder is null ? _country : _countryBuilder.Build());
+        }
+
+        internal AuthorBuilder BornIn(CountryBuilder country)
+        {
+            _countryBuilder = country;
+            return this;
         }
     }
 }
