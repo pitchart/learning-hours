@@ -46,38 +46,23 @@ namespace BookInvoicing.Tests
         {
             // Arrange
             var inMemoryRepository = OverrideRepositoryForTests();
-            ReportGenerator generator = new ReportGenerator();
+            var generator = new ReportGenerator();
 
-            var book = new Novel("A mysterious adventure fiction", 35.5, new Author(
-                    "Some Guy", new Country(
-                        "France", Currency.Euro, Language.French
-                        )
-                    ),
-                Language.English, new List<Genre> {Genre.Mystery, Genre.AdventureFiction }
-            );
-
-
-
-            var country = ACountry()
-                .Named("France")
-                .WhoPaysIn(Currency.Euro)
-                .Speaking(Language.French);
-
-            var author = AnAuthor().Named("Some Guy").BornIn(country).Build();
-
-            var novel = NovelBuilder.ANovel()
-                .Named("A mysterious adventure fiction")
+            var europeanCountry = ACountry().WhoPaysIn(Currency.Euro);
+            var laFrance = europeanCountry.But().Named("La France").Speaking(Language.French);
+            var germany  = europeanCountry.But().Named("Germany").Speaking(Language.German).Build();
+            
+            var book = NovelBuilder.ANovel()
+                .WrittenBy(AnAuthor().BornIn(laFrance).Build())
                 .Costing(35.5)
-                .WrittenBy(author)
-                .WrittenIn(Language.English)
-                .WithGenre(Genre.Mystery, Genre.AdventureFiction)
                 .Build();
 
             var purchasedBook = new PurchasedBook(book, 3);
 
-            var invoice = new Invoice("John Doe", new Country(
-                "Germany", Currency.Euro, Language.German
-            ));
+            var invoice = new Invoice("John Doe",
+                germany
+            );
+            
             invoice.AddPurchasedBooks(new List<PurchasedBook> { purchasedBook });
 
             // Act

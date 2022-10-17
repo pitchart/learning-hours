@@ -44,5 +44,14 @@ namespace BookInvoicing.Tests
             return new Country(_name, _currency, _language);
         }
 
+        public CountryBuilder But()
+        {
+            return new CountryBuilder
+            {
+                _currency = _currency,
+                _language = _language,
+                _name = _name
+            };
+        }
     }
 }
