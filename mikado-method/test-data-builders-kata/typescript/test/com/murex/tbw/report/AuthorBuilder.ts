@@ -4,7 +4,7 @@ import { CountryBuilder } from "./CountryBuilder";
 
 export class AuthorBuilder {
     private name: string = "John Doe";
-    private nationality: Country = CountryBuilder.aCountry().build();
+    private nationality: CountryBuilder = CountryBuilder.aCountry();
     static anAuthor(): AuthorBuilder {
         return new AuthorBuilder();
     }
@@ -16,12 +16,14 @@ export class AuthorBuilder {
     }
 
 
-    bornIn(country: Country): AuthorBuilder {
+    bornIn(country: CountryBuilder): AuthorBuilder {
         this.nationality = country;
         return this;
     }
 
     build(): Author {
-        return new Author(this.name, this.nationality);
+        return new Author(this.name, this.nationality.build());
     }
 }
+
+export const anAuthor = (): AuthorBuilder => AuthorBuilder.anAuthor();

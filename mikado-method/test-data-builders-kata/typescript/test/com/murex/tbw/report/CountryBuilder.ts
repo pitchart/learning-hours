@@ -1,9 +1,18 @@
 import { Country, Currency, Language } from "../../../../../src/com/murex/tbw/domain/country";
 
 export class CountryBuilder {
-    private name: string = "country";
-    private currency: Currency = Currency.Dollar;
-    private language: Language = Language.English;
+    constructor(name: string = "country", currency: Currency = Currency.Dollar, language: Language = Language.English) {
+        this.name = name;
+        this.currency = currency;
+        this.language = language;
+    }
+
+    but(): CountryBuilder {
+        return new CountryBuilder(this.name, this.currency, this.language);
+    }
+    private name: string;
+    private currency: Currency;
+    private language: Language;
 
     static aCountry(): CountryBuilder {
         return new CountryBuilder();
@@ -28,3 +37,5 @@ export class CountryBuilder {
 
     static USA = this.aCountry().named("USA").payingIn(Currency.Dollar).speaking(Language.English);
 }
+export const aCountry = (): CountryBuilder => CountryBuilder.aCountry();
+export const usa = (): CountryBuilder => CountryBuilder.USA;

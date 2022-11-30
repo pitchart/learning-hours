@@ -3,14 +3,14 @@ import { Language } from "../../../../../src/com/murex/tbw/domain/country";
 import { AuthorBuilder } from "./AuthorBuilder";
 
 export class EducationalBookBuilder {
-    private author: Author = AuthorBuilder.anAuthor().build();
+    private author: AuthorBuilder = AuthorBuilder.anAuthor();
     private title: string = "Martine fait des tests avec Caro et ses copains";
     private category: Category = Category.COMPUTER;
     private cost: number = 1000;
     private language: Language = Language.English;
 
     build(): EducationalBook {
-        return new EducationalBook(this.title, this.cost, this.author, this.language, this.category);
+        return new EducationalBook(this.title, this.cost, this.author.build(), this.language, this.category);
     }
 
     categorizedAs(category: Category): EducationalBookBuilder {
@@ -28,7 +28,7 @@ export class EducationalBookBuilder {
         return this;
     }
 
-    writtenBy(author: Author): EducationalBookBuilder {
+    writtenBy(author: AuthorBuilder): EducationalBookBuilder {
         this.author = author;
         return this;
     }
@@ -42,3 +42,4 @@ export class EducationalBookBuilder {
         return new EducationalBookBuilder();
     }
 }
+export const aBook = (): EducationalBookBuilder => EducationalBookBuilder.aBook();
