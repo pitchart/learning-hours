@@ -37,5 +37,4 @@ export class CountryBuilder {
 
     static USA = this.aCountry().named("USA").payingIn(Currency.Dollar).speaking(Language.English);
 }
-export const aCountry = (): CountryBuilder => CountryBuilder.aCountry();
-export const usa = (): CountryBuilder => CountryBuilder.USA;
+

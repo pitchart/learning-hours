@@ -42,4 +42,4 @@ export class EducationalBookBuilder {
         return new EducationalBookBuilder();
     }
 }
-export const aBook = (): EducationalBookBuilder => EducationalBookBuilder.aBook();
+

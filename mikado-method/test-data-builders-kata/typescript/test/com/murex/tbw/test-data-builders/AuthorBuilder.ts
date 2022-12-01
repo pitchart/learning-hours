@@ -1,5 +1,4 @@
 import { Author } from "../../../../../src/com/murex/tbw/domain/book";
-import { Country } from "../../../../../src/com/murex/tbw/domain/country";
 import { CountryBuilder } from "./CountryBuilder";
 
 export class AuthorBuilder {
@@ -9,12 +8,10 @@ export class AuthorBuilder {
         return new AuthorBuilder();
     }
 
-
     named(name: string): AuthorBuilder {
         this.name = name;
         return this;
     }
-
 
     bornIn(country: CountryBuilder): AuthorBuilder {
         this.nationality = country;
@@ -22,8 +19,6 @@ export class AuthorBuilder {
     }
 
     build(): Author {
-        return new Author(this.name, this.nationality.build());
+        return new Author(this.name, this.nationality.build(), 42);
     }
 }
-
-export const anAuthor = (): AuthorBuilder => AuthorBuilder.anAuthor();

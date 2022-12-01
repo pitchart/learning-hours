@@ -2,10 +2,9 @@ import {ReportGenerator} from "../../../../../src/com/murex/tbw/report/ReportGen
 import {MainRepository} from "../../../../../src/com/murex/tbw/MainRepository";
 import {InMemoryRepository} from "../storage/InMemoryRepository";
 import {Invoice, PurchasedBook} from "../../../../../src/com/murex/tbw/purchase";
-import { aCountry, usa } from "./CountryBuilder";
-import { aBook } from "./EducationalBookBuilder";
 import { Currency, Language } from "../../../../../src/com/murex/tbw/domain/country";
-import { anAuthor } from "./AuthorBuilder";
+import { aBook, aCountry, anAuthor, usa } from "../test-data-builders";
+
 
 describe(ReportGenerator, () => {
     it("Computes total amount without discount and without tax rate", () => {
